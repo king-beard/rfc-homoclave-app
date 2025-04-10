@@ -6,67 +6,75 @@ const initialForm = {
   name: "",
   fathersLastName: "",
   mothersLastName: "",
-  birthdayDate: "12-03-1997",
+  birthdayDate: "",
   personType: "fisica"
 }
 
-export const ConsultRfcHomoclave = () => {
+export const ConsultRfcHomoclave = ({onConsultRfcHomoclave}) => {
   const { formState, onInputChange, onResetForm } = useForm(initialForm);
   const { name, fathersLastName, mothersLastName, birthdayDate } = formState;
-  const [isRender, setIsRender] = useState(false)
+  // const [isRender, setIsRender] = useState(false)
 
-  const onSubmit = () => {
+  const onSubmit = (event) => {
     event.preventDefault()
-    setIsRender(true)
+    onConsultRfcHomoclave(formState)
+    // setIsRender(true)
   }
 
-  const onCleanForm = () => {
+  const onCleanForm = (event) => {
     event.preventDefault()
-    setIsRender(false)
     onResetForm(initialForm)
   }
 
   return (
-    <form>
-      <input
-        type="text"
-        className="form-control mb-2"
-        placeholder="Nombre"
-        name="name"
-        value={name}
-        onChange={onInputChange}
-      />
-      <input
-        type="text"
-        className="form-control mb-2"
-        placeholder="Apellido Paterno"
-        name="fathersLastName"
-        value={fathersLastName}
-        onChange={onInputChange}
-      />
-      <input
-        type="text"
-        className="form-control mb-2"
-        placeholder="Apellido Materno"
-        name="mothersLastName"
-        value={mothersLastName}
-        onChange={onInputChange}
-      />
-      <input
-        type="text"
-        className="form-control mb-2"
-        placeholder="Fecha de nacimiento"
-        name="date"
-        value={birthdayDate}
-        onChange={onInputChange}
-      />
-      <div className="input-group date">
-        <input type="text" className="form-control" />
-        <div className="input-group-text"><i className="fa fa-calendar"></i></div>
+    <form className="mt-4">
+      <div className="mb-2">
+        <label className="form-label">Nombre(s)</label>
+        <input
+          type="text"
+          className="form-control"
+          name="name"
+          value={name}
+          onChange={onInputChange}
+        />
       </div>
-      <button type="submit" className="btn btn-outline-danger" onClick={onSubmit}>Calcular</button>
-      <button type="submit" className="btn btn-outline-danger" onClick={onCleanForm}>Limpiar Formulario</button>
-      {isRender && <ShowRfcHomoclave bodyRequest={formState} />}
+      <div className="mb-2">
+        <label className="form-label">Apellido Paterno</label>
+        <input
+          type="text"
+          className="form-control"
+          name="fathersLastName"
+          value={fathersLastName}
+          onChange={onInputChange}
+        />
+      </div>
+      <div className="mb-2">
+        <label className="form-label">Apellido Materno</label>
+        <input
+          type="text"
+          className="form-control"
+          name="mothersLastName"
+          value={mothersLastName}
+          onChange={onInputChange}
+        />
+      </div>
+      <div className="mb-2">
+        <label className="form-label">Fecha de nacimiento (DD-MM-YYYY)</label>
+        <input
+          type="text"
+          className="form-control"
+          name="birthdayDate"
+          value={birthdayDate}
+          onChange={onInputChange}
+        />
+      </div>
+
+      <div className="d-flex justify-content-center mt-5">
+        <button type="submit" className="btn btn-outline-danger" onClick={onSubmit}>Calcular</button>
+        <button type="submit" className="btn btn-outline-danger" onClick={onCleanForm}>Limpiar Formulario</button>
+      </div>
+
+      {/* {isRender && <ShowRfcHomoclave bodyRequest={formState} />} */}
     </form>
   )
 }
