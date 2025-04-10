@@ -1,18 +1,7 @@
-import { useFetch } from "../hooks/useFetch";
-
-const apiUrl = import.meta.env.VITE_API_URL;
-
-const initalRequest = {
-  method: "POST",
-  mode: 'cors',
-  headers: {
-    "Content-Type": "application/json",
-  }
-};
+import { getRfcHomoclave } from "../helpers/getRfcHomoclave";
 
 export const ShowRfcHomoclave = ({bodyRequest}) => {
-  const request = { ...initalRequest, body: JSON.stringify(bodyRequest) }
-  const { data } = useFetch(apiUrl, request);
+  const { data } = getRfcHomoclave(bodyRequest);
 
   return (
     <div className="container mt-5">
